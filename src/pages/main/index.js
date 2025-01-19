@@ -36,12 +36,20 @@ export default function Page() {
       setFileUrl(fileContent); // Set the file URL from localStorage
     }
   }, []);
+  const dynamicFileUrl = 'https://raw.githubusercontent.com/200430116058/exciledraw/master/public/FIles/drawStates%20(11).json';
+
+  // Construct the full URL with the dynamic file URL as a query parameter
+  const apiUrl = `/api/proxyDrawData?fileUrl=${encodeURIComponent(dynamicFileUrl)}`;
 
   // Fetch the file content only if the fileUrl is available
-  const { data, error } = useSWR("/Files/drawStates (11).json", fetcher, {
+  const { data, error } = useSWR(apiUrl, fetcher, {
+ 
     revalidateOnFocus: false, // Optional: Avoid refetching on focus
     shouldRetryOnError: false, // Optional: Avoid retrying the request on failure
   });
+
+  // const res = axios.get("https://github.com/200430116058/exciledraw/blob/master/public/FIles/drawStates%20(1).json")
+  // console.log("Res" , res)
 
   // Handle loading and error states
   useEffect(() => {
