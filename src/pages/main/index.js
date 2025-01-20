@@ -48,36 +48,55 @@ export default function Page() {
     shouldRetryOnError: false, // Optional: Avoid retrying the request on failure
   });
 
-  // const res = axios.get("https://github.com/200430116058/exciledraw/blob/master/public/FIles/drawStates%20(1).json")
-  // console.log("Res" , res)
+  
 
-  // Handle loading and error states
-  useEffect(() => {
-    if (data) {
-      try {
-        console.log("Fetched Data:", data);
+  const handleSave = ()=>{
+    const textContent = JSON.stringify(drawStates, null, 2); 
+
+    setDrawStates(textContent)
+
+    localStorage.setItem("textContent" ,  textContent)
+  }
+  // useEffect(() => {
+  //   if (data) {
+  //     try {
+  //       console.log("Fetched Data:", data);
   
-        // Assuming the fetched data is a stringified JSON
-        const parsedData = JSON.parse(data); // Parse JSON string into an object
+  //       // Assuming the fetched data is a stringified JSON
+  //       const parsedData = JSON.parse(data); // Parse JSON string into an object
   
-        console.log("Parsed Data:", parsedData); // Log the parsed data
+  //       console.log("Parsed Data:", parsedData); // Log the parsed data
   
-        // Ensure the parsed data has all the required sections
-        if (parsedData && parsedData["1"] && parsedData["2"] && parsedData["3"] && parsedData["4"]) {
-          // Set the entire state for all sections
-          setDrawStates(parsedData); // Update all sections in the drawStates state
-          setTestData(parsedData);
-        } else {
-          console.error("Fetched data format is incorrect");
-        }
-      } catch (error) {
-        console.error("Error parsing fetched data:", error);
-      }
-    }
-  }, [data]); // Dependency on data to trigger effect when data is fetched
+  //       // Ensure the parsed data has all the required sections
+  //       if (parsedData && parsedData["1"] && parsedData["2"] && parsedData["3"] && parsedData["4"]) {
+  //         // Set the entire state for all sections
+  //         setDrawStates(parsedData); // Update all sections in the drawStates state
+  //         setTestData(parsedData);
+  //       } else {
+  //         console.error("Fetched data format is incorrect");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error parsing fetched data:", error);
+  //     }
+  //   }
+  // }, [data]); // Dependency on data to trigger effect when data is fetched
    // Dependency on data to trigger effect when data is fetched
   
+useEffect(()=>{
 
+
+  const textContent = localStorage.getItem("textContent");
+  const parsedData = JSON.parse(textContent);
+  console.log("Parss",parsedData )
+  if (parsedData && parsedData["1"] && parsedData["2"] && parsedData["3"] && parsedData["4"]) {
+            // Set the entire state for all sections
+            setDrawStates(parsedData); // Update all sections in the drawStates state
+           
+          } else {
+            console.error("Fetched data format is incorrect");
+          }
+
+} , [])
  
 
   const sidebarItems = [
@@ -93,6 +112,8 @@ export default function Page() {
 
   return (
     <div className={styles.main}>
+
+<button onClick={()=>handleSave()}>Save</button>
       <div className={styles.sidebar}>
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {sidebarItems.map((item) => (
@@ -119,6 +140,7 @@ export default function Page() {
           TestData = {TestData}
         />
       </div>
+    
     </div>
   );
 }
