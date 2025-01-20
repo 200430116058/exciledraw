@@ -56,6 +56,22 @@ export default function Page() {
     setDrawStates(textContent)
 
     localStorage.setItem("textContent" ,  textContent)
+    localStorage.setItem("drawStates", textContent);
+
+    // Create a Blob object with the text content (JSON)
+    const blob = new Blob([textContent], { type: "application/json" });
+
+    // Generate a URL for the Blob
+    const fileUrl = URL.createObjectURL(blob);
+
+    // Store the Blob URL in localStorage for future use (optional)
+    localStorage.setItem("drawStatesFileUrl", fileUrl);
+
+    // Optional: Automatically prompt the user to download the file
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = "drawStates.json"; // File name
+    link.click(); // Simulate download
   }
   // useEffect(() => {
   //   if (data) {
