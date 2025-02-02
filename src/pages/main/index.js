@@ -12,41 +12,41 @@ const ExcalidrawWrapper = dynamic(
 );
 
 export default function Page() {
-  html2canvas(element, { scale: 2 }).then((canvas) => {
-    // Get original image dimensions
-    const originalWidth = canvas.width;
-    const originalHeight = canvas.height;
+  // html2canvas(element, { scale: 2 }).then((canvas) => {
+  //   // Get original image dimensions
+  //   const originalWidth = canvas.width;
+  //   const originalHeight = canvas.height;
 
-    // Calculate A3 aspect ratio (1.414)
-    const a3AspectRatio = 1.414;
+  //   // Calculate A3 aspect ratio (1.414)
+  //   const a3AspectRatio = 1.414;
 
-    // Calculate the new dimensions for A3
-    let newWidth, newHeight;
+  //   // Calculate the new dimensions for A3
+  //   let newWidth, newHeight;
     
-    // Check if width or height needs to be adjusted
-    if (originalWidth / originalHeight > a3AspectRatio) {
-      newWidth = originalWidth;
-      newHeight = originalWidth / a3AspectRatio;
-    } else {
-      newHeight = originalHeight;
-      newWidth = originalHeight * a3AspectRatio;
-    }
+  //   // Check if width or height needs to be adjusted
+  //   if (originalWidth / originalHeight > a3AspectRatio) {
+  //     newWidth = originalWidth;
+  //     newHeight = originalWidth / a3AspectRatio;
+  //   } else {
+  //     newHeight = originalHeight;
+  //     newWidth = originalHeight * a3AspectRatio;
+  //   }
 
-    // Create a new canvas to resize the image to A3 aspect ratio
-    const resizedCanvas = document.createElement("canvas");
-    const context = resizedCanvas.getContext("2d");
-    resizedCanvas.width = newWidth;
-    resizedCanvas.height = newHeight;
+  //   // Create a new canvas to resize the image to A3 aspect ratio
+  //   const resizedCanvas = document.createElement("canvas");
+  //   const context = resizedCanvas.getContext("2d");
+  //   resizedCanvas.width = newWidth;
+  //   resizedCanvas.height = newHeight;
 
-    // Draw the original image onto the new canvas with the new dimensions
-    context.drawImage(canvas, 0, 0, originalWidth, originalHeight, 0, 0, newWidth, newHeight);
+  //   // Draw the original image onto the new canvas with the new dimensions
+  //   context.drawImage(canvas, 0, 0, originalWidth, originalHeight, 0, 0, newWidth, newHeight);
 
-    // Convert resized canvas to image URL and download
-    const link = document.createElement("a");
-    link.download = "screenshot-a3.png";
-    link.href = resizedCanvas.toDataURL("image/png");
-    link.click();
-  });
+  //   // Convert resized canvas to image URL and download
+  //   const link = document.createElement("a");
+  //   link.download = "screenshot-a3.png";
+  //   link.href = resizedCanvas.toDataURL("image/png");
+  //   link.click();
+  // });
   const [selectedDraw, setSelectedDraw] = useState(1);
   const [drawStates, setDrawStates] = useState({
     1: [],
